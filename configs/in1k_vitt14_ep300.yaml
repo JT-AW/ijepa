@@ -13,7 +13,7 @@ data:
   use_gaussian_blur: false
   use_horizontal_flip: false
 logging:
-  folder: ~/I-JEPA/experiment_logs/vitt14.224-bs.2048-ep.300/
+  folder: /home/john/experiment_logs/vit
   write_tag: jepa
 mask:
   allow_overlap: false
