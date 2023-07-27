@@ -69,7 +69,7 @@ class ImageNet(torchvision.datasets.ImageFolder):
         self,
         root,
         image_folder='imagenet_full_size/061417/',
-        tar_file='imagenet_full_size-061417.tar.gz',
+        tar_file='ILSVRC2012_img_train.tar',
         transform=None,
         train=True,
         job_id=None,
