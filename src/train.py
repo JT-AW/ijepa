@@ -29,6 +29,9 @@ import torch.multiprocessing as mp
 import torch.nn.functional as F
 from torch.nn.parallel import DistributedDataParallel
 
+# Custom TensorBoard Logging
+from torch.utils.tensorboard import SummaryWriter
+
 from src.masks.multiblock import MaskCollator as MBMaskCollator
 from src.masks.utils import apply_masks
 from src.utils.distributed import (
@@ -63,6 +66,8 @@ torch.backends.cudnn.benchmark = True
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 logger = logging.getLogger()
 
+# Instantiating SummaryWriter for TensorBoard logging
+tb_writer = SummaryWriter()
 
 def main(args, resume_preempt=False):
 
@@ -373,6 +378,10 @@ def main(args, resume_preempt=False):
         # -- Save Checkpoint after every epoch
         logger.info('avg. loss %.3f' % loss_meter.avg)
         save_checkpoint(epoch+1)
+        # -- TensorBoard Insertion
+        tb_writer.add_scalar("Loss/train", loss_meter.avg, epoch + 1)
+    tb_writer.flush()
+    tb_writer.close()
 
 
 if __name__ == "__main__":
